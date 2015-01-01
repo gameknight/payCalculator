@@ -53,21 +53,56 @@ public class GenParam {
 	 * 
 	 */
 
-	private final static BigDecimal OVERTIME = new BigDecimal("40.0");
+	private final static BigDecimal OVERTIME = new BigDecimal("40.00");
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 */
 
-	private final static BigDecimal LUNCHPAID = new BigDecimal("10.0");
+	private final static BigDecimal LUNCHPAID = new BigDecimal("10.00");
 	
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 */
 
-	private final static BigDecimal LUNCHAMOUNT = new BigDecimal("0.5");
+	private final static BigDecimal RATEOT = new BigDecimal("0.50");
+	
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 */
+
+	private final static BigDecimal RATEOTPREM = new BigDecimal("0.50");
+	
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 */
+
+	private final static BigDecimal LUNCHAMOUNT = new BigDecimal("0.50");
+	
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 */
+
+	private final static BigDecimal HOLIDAYHOURS = new BigDecimal("8.00");
+	
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 */
+
+	private final static int DECIMALS = 3;
+	
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 */
+
+	private final static int ROUNDING = BigDecimal.ROUND_HALF_EVEN;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -149,8 +184,28 @@ public class GenParam {
 		return LUNCHPAID;
 	}
 	
+	public static BigDecimal getRateot() {
+		return RATEOT;
+	}
+
+	public static BigDecimal getRateotprem() {
+		return RATEOTPREM;
+	}
+
 	public static BigDecimal getLunchamount() {
 		return LUNCHAMOUNT;
+	}
+
+	public static BigDecimal getHolidayhours() {
+		return HOLIDAYHOURS;
+	}
+
+	public static int getDecimals() {
+		return DECIMALS;
+	}
+
+	public static int getRounding() {
+		return ROUNDING;
 	}
 
 	public static String getINFO_FORMAT() {

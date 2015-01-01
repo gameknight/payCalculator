@@ -73,8 +73,8 @@ public class Punch {
 	 */
 	public Punch() {
 		super();
-		hoursYesOT = new BigDecimal("0.0");
-		hoursNoOT = new BigDecimal("0.0");
+		hoursYesOT = new BigDecimal("0.00");
+		hoursNoOT = new BigDecimal("0.00");
 		usePremOp = new Boolean(true);
 		usePremAftn = new Boolean(false);
 		usePremOvrn = new Boolean(false);

@@ -9,7 +9,13 @@ public class CalcValues {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
 
-	private BigDecimal payBaseYesOT;
+	private BigDecimal payBaseYesOTStr;
+	
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 */
+
+	private BigDecimal payBaseYesOTOT;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -94,14 +100,22 @@ public class CalcValues {
 		zero();
 	}
 
-	public BigDecimal getPayBaseYesOT() {
-		return payBaseYesOT;
+	public BigDecimal getPayBaseYesOTStr() {
+		return payBaseYesOTStr;
 	}
 
-	public void setPayBaseYesOT(BigDecimal payBaseYesOT) {
-		this.payBaseYesOT = payBaseYesOT;
+	public void setPayBaseYesOTStr(BigDecimal payBaseYesOTStr) {
+		this.payBaseYesOTStr = payBaseYesOTStr;
+	}
+	
+	public BigDecimal getPayBaseYesOTOT() {
+		return payBaseYesOTOT;
 	}
 
+	public void setPayBaseYesOTOT(BigDecimal payBaseYesOTOT) {
+		this.payBaseYesOTOT = payBaseYesOTOT;
+	}
+	
 	public BigDecimal getPayBaseNoOT() {
 		return payBaseNoOT;
 	}
@@ -200,15 +214,15 @@ public class CalcValues {
 	 */
 
 	public void zero() {
-		payBaseYesOT = new BigDecimal(0);
-		payBaseNoOT = new BigDecimal(0);
-		payPremOp = new BigDecimal(0);
-		payPremAftn = new BigDecimal(0);
-		payPremOvrn = new BigDecimal(0);
-		payPremSun = new BigDecimal(0);
-		payPremLeadT = new BigDecimal(0);
-		pay2ndLunch = new BigDecimal(0);
-		payHoliday = new BigDecimal(0);
+		payBaseYesOTStr = new BigDecimal("0.00");
+		payBaseNoOT = new BigDecimal("0.00");
+		payPremOp = new BigDecimal("0.00");
+		payPremAftn = new BigDecimal("0.00");
+		payPremOvrn = new BigDecimal("0.00");
+		payPremSun = new BigDecimal("0.00");
+		payPremLeadT = new BigDecimal("0.00");
+		pay2ndLunch = new BigDecimal("0.00");
+		payHoliday = new BigDecimal("0.00");
 	}
 
 }

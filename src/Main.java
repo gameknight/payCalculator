@@ -23,7 +23,7 @@ public class Main {
 		GenParam.setRatePremOvrn(new BigDecimal(".90"));
 		GenParam.setRatePremSun(new BigDecimal(".70"));
 		GenParam.setRatePremLeadT(new BigDecimal(".95"));
-		GenParam.showInfo();
+//		GenParam.showInfo();
 		
 		// TODO create an arrayList of punches for each day of two week period
 		// TODO create an arrayList of calcValues for each day of two week period
@@ -39,7 +39,7 @@ public class Main {
 		for (int i = 0; i <= 14; i++) {
 			Punch punch = new Punch();
 			punch.setHoursYesOT(new BigDecimal(9));
-			punch.showInfo();
+//			punch.showInfo();
 			punchList.add(punch);
 			if (i<=7) {
 				day = i;
@@ -50,7 +50,7 @@ public class Main {
 				week = 2;
 			}
 			CalcValues calcValue = new CalcValues(day,week);
-			calcValue.showInfo();
+//			calcValue.showInfo();
 			calcValueList.add(calcValue);
 		}
 		
@@ -59,7 +59,7 @@ public class Main {
 		 */
 		for (int i = 0; i <= 2; i++) {
 			WeekValues weekValue = new WeekValues();
-			weekValue.showInfo();
+//			weekValue.showInfo();
 			weekValueList.add(weekValue);
 		}
 		
@@ -68,6 +68,7 @@ public class Main {
 		 */
 		// TODO before calling calc method add the zero for each day and zero for each week
 		for (int i = 1; i <= 14; i++) {
+			System.out.println(" ");
 			Calculations.calc(punchList.get(i), calcValueList.get(i), weekValueList.get(calcValueList.get(i).getDateWeek()));
 		}
 		
