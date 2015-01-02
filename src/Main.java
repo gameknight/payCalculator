@@ -1,5 +1,6 @@
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import javax.swing.*;
 
 /**
  * 
@@ -25,8 +26,16 @@ public class Main {
 		GenParam.setRatePremLeadT(new BigDecimal(".95"));
 //		GenParam.showInfo();
 		
-		// TODO create an arrayList of punches for each day of two week period
-		// TODO create an arrayList of calcValues for each day of two week period
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                UserInterface calc = new UserInterface();
+                calc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                calc.setVisible(true);
+            }
+        });
+		
+		// TODO create an arrayList of strings with the day names
+		// TODO create an arrayList for each row element inputs (8) and outputs (8)
 		int day;
 		int week;
 		ArrayList<Punch> punchList = new ArrayList<Punch>();
