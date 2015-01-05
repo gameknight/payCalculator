@@ -1,5 +1,7 @@
+import java.awt.GridLayout;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+
 import javax.swing.*;
 
 /**
@@ -29,7 +31,9 @@ public class Main {
 		SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 UserInterface calc = new UserInterface();
+                calc.setLayout(new GridLayout(UserInterface.ROWS, UserInterface.COLS));
                 calc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                calc.setSize(UserInterface.WIDTH, UserInterface.HEIGHT);
                 calc.setVisible(true);
             }
         });
