@@ -47,6 +47,13 @@ public class GenParam {
 	 */
 
 	private static BigDecimal ratePremLeadT;
+	
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 */
+
+	private static Boolean usePremOp = new Boolean(true);
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -174,6 +181,14 @@ public class GenParam {
 
 	public static void setRatePremLeadT(BigDecimal ratePremLeadT) {
 		GenParam.ratePremLeadT = ratePremLeadT;
+	}
+	
+	public static Boolean getUsePremOp() {
+		return usePremOp;
+	}
+
+	public static void setUsePremOp(Boolean usePremOp) {
+		GenParam.usePremOp = usePremOp;
 	}
 
 	public static BigDecimal getOvertime() {

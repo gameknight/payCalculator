@@ -1,4 +1,3 @@
-import java.awt.GridLayout;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -12,11 +11,18 @@ import javax.swing.*;
  * @author Greg Fystro
  *
  */
+
 public class Main {
 
 	/**
 	 * @param args
 	 */
+
+	public static ArrayList<Punch> punchList = new ArrayList<Punch>();
+	public static ArrayList<CalcValues> calcValueList = new ArrayList<CalcValues>();
+	public static ArrayList<WeekValues> weekValueList = new ArrayList<WeekValues>();
+
+	
 	public static void main(String[] args) {
 
 		// Set all general parameters to starting values
@@ -28,30 +34,19 @@ public class Main {
 		GenParam.setRatePremLeadT(new BigDecimal(".95"));
 //		GenParam.showInfo();
 		
-		SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                UserInterface calc = new UserInterface();
-                calc.setLayout(new GridLayout(UserInterface.ROWS, UserInterface.COLS));
-                calc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                calc.setSize(UserInterface.WIDTH, UserInterface.HEIGHT);
-                calc.setVisible(true);
-            }
-        });
+		
 		
 		// TODO create an arrayList of strings with the day names
 		// TODO create an arrayList for each row element inputs (8) and outputs (8)
 		int day;
 		int week;
-		ArrayList<Punch> punchList = new ArrayList<Punch>();
-		ArrayList<CalcValues> calcValueList = new ArrayList<CalcValues>();
-		ArrayList<WeekValues> weekValueList = new ArrayList<WeekValues>();
 		
 		/**
 		 * 
 		 */
 		for (int i = 0; i <= 14; i++) {
 			Punch punch = new Punch();
-			punch.setHoursYesOT(new BigDecimal(9));
+//			punch.setHoursYesOT(new BigDecimal("9.00"));
 //			punch.showInfo();
 			punchList.add(punch);
 			if (i<=7) {
@@ -84,6 +79,17 @@ public class Main {
 			System.out.println(" ");
 			Calculations.calc(punchList.get(i), calcValueList.get(i), weekValueList.get(calcValueList.get(i).getDateWeek()));
 		}
+		
+		
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                UserInterface calc = new UserInterface();
+//                calc.setLayout(new GridLayout(3,1));
+                calc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                calc.setSize(UserInterface.WIDTH, UserInterface.HEIGHT);
+                calc.setVisible(true);
+            }
+        });
 		
 	}
 

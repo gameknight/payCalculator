@@ -215,6 +215,7 @@ public class CalcValues {
 
 	public void zero() {
 		payBaseYesOTStr = new BigDecimal("0.00");
+		payBaseYesOTOT = new BigDecimal("0.00");
 		payBaseNoOT = new BigDecimal("0.00");
 		payPremOp = new BigDecimal("0.00");
 		payPremAftn = new BigDecimal("0.00");

@@ -21,12 +21,6 @@ public class Punch {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
 
-	private Boolean usePremOp;
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 */
-
 	private Boolean usePremAftn;
 
 	/**
@@ -75,7 +69,6 @@ public class Punch {
 		super();
 		hoursYesOT = new BigDecimal("0.00");
 		hoursNoOT = new BigDecimal("0.00");
-		usePremOp = new Boolean(true);
 		usePremAftn = new Boolean(false);
 		usePremOvrn = new Boolean(false);
 		usePremSun = new Boolean(false);
@@ -97,14 +90,6 @@ public class Punch {
 
 	public void setHoursNoOT(BigDecimal hoursNoOT) {
 		this.hoursNoOT = hoursNoOT;
-	}
-
-	public Boolean getUsePremOp() {
-		return usePremOp;
-	}
-
-	public void setUsePremOp(Boolean usePremOp) {
-		this.usePremOp = usePremOp;
 	}
 
 	public Boolean getUsePremAftn() {
@@ -162,7 +147,7 @@ public class Punch {
 	public String showInfo() {
 		// TODO implement me
 		System.out.printf(INFO_FORMAT,hoursYesOT.doubleValue(),
-		hoursNoOT.doubleValue(),usePremOp.toString(),
+		hoursNoOT.doubleValue(),getHoursNoOT().toString(),
 		usePremAftn.toString(),usePremOvrn.toString(),
 		usePremSun.toString(),usePremLeadT.toString(),
 		useHoliday.toString());

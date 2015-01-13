@@ -63,7 +63,7 @@ public class Calculations {
 		day.setPayBaseNoOT(calcBaseNoOT(punch.getHoursNoOT()));
 		System.out.println("Non-OT pay: $" + day.getPayBaseNoOT());
 		// set pay for operator premium
-		if (punch.getUsePremOp()) {
+		if (GenParam.getUsePremOp()) {
 			day.setPayPremOp(calcPremOp(hoursPaid, hoursOT));
 		}
 		System.out.println("Operator Prem: $" + day.getPayPremOp());
