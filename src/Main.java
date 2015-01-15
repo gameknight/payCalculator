@@ -1,3 +1,4 @@
+import java.awt.FlowLayout;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		// Set all general parameters to starting values
-		GenParam.setRateHourly(new BigDecimal("30.00"));
+		GenParam.setRateHourly(new BigDecimal("25.00"));
 		GenParam.setRatePremOp(new BigDecimal(".85"));
 		GenParam.setRatePremAftn(new BigDecimal(".85"));
 		GenParam.setRatePremOvrn(new BigDecimal(".90"));
@@ -84,7 +85,7 @@ public class Main {
 		SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 UserInterface calc = new UserInterface();
-//                calc.setLayout(new GridLayout(3,1));
+                calc.setLayout(new FlowLayout());
                 calc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 calc.setSize(UserInterface.WIDTH, UserInterface.HEIGHT);
                 calc.setVisible(true);

@@ -67,8 +67,8 @@ public class Punch {
 	 */
 	public Punch() {
 		super();
-		hoursYesOT = new BigDecimal("0.00");
-		hoursNoOT = new BigDecimal("0.00");
+		hoursYesOT = new BigDecimal("0");
+		hoursNoOT = new BigDecimal("0");
 		usePremAftn = new Boolean(false);
 		usePremOvrn = new Boolean(false);
 		usePremSun = new Boolean(false);

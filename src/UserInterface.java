@@ -34,6 +34,9 @@ public class UserInterface extends JFrame {
 	private static final String PAYPREMSUN_LABEL = "Sun Pr.";
 	private static final String PAYPREMLEADT_LABEL = "LdT Pr.";
 	private static final String PAYHOLIDAY_LABEL = "Holiday";
+	private static final String WEEK1TOTAL_LABEL = "===== Week 1 Totals =====";
+	private static final String WEEK2TOTAL_LABEL = "===== Week 2 Totals =====";
+	private final String TOTALLABEL = "==== Pay Period Totals ====";
 	private static final long serialVersionUID = 1L;
 	private static final String ID_PROPERTY = "ID NUMBER";
 	private static final String TYPE_PROPERTY = "TYPE_OF_COMPONENT";
@@ -41,11 +44,11 @@ public class UserInterface extends JFrame {
 	private static final int OFFSET1 = 1;
 	private static final int OFFSET2 = 3;
 	protected static final int WIDTH = 1000;
-	protected static final int HEIGHT = 600;
+	protected static final int HEIGHT = 720;
 	private static final int WIDTH_TEXT = 3;
 	private static final int WIDTH_TEXT_WIDE = 4;
 	private static final int WIDTH_TEXT_WIDER = 5;
-	protected static final int ROWS = 21;
+	protected static final int ROWS = 22;
 	protected static final int COLS = 16;
 	private static final int SPACER1 = 50;
 	private static final int SPACER2 = 500;
@@ -73,6 +76,45 @@ public class UserInterface extends JFrame {
 	private ArrayList<JTextField> payPremSunList = new ArrayList<JTextField>();
 	private ArrayList<JTextField> payPremLeadTList = new ArrayList<JTextField>();
 	private ArrayList<JTextField> payHolidayList = new ArrayList<JTextField>();
+	private JLabel summaryLabel1;
+	private JLabel summaryLabel2;
+	private JTextField summaryWeek1Hrs;
+	private JTextField summaryWeek1SickHrs;
+	private JTextField summaryWeek1YesOTStr;
+	private JTextField summaryWeek1YesOTOT;
+	private JTextField summaryWeek1NoOT;
+	private JTextField summaryWeek1PremOp;
+	private JTextField summaryWeek1PremAftn;
+	private JTextField summaryWeek1PremOvrn;
+	private JTextField summaryWeek1PremSun;
+	private JTextField summaryWeek1PremLeadT;
+	private JTextField summaryWeek1Holiday;
+	private JTextField summaryWeek2Hrs;
+	private JTextField summaryWeek2SickHrs;
+	private JTextField summaryWeek2YesOTStr;
+	private JTextField summaryWeek2YesOTOT;
+	private JTextField summaryWeek2NoOT;
+	private JTextField summaryWeek2PremOp;
+	private JTextField summaryWeek2PremAftn;
+	private JTextField summaryWeek2PremOvrn;
+	private JTextField summaryWeek2PremSun;
+	private JTextField summaryWeek2PremLeadT;
+	private JTextField summaryWeek2Holiday;
+	private JLabel totalLabel;
+	private JTextField totalHrs;
+	private JTextField totalSick;
+	private JTextField totalYesOTStr;
+	private JTextField totalYesOTOT;
+	private JTextField totalNoOT;
+	private JTextField totalPremOp;
+	private JTextField totalPremAftn;
+	private JTextField totalPremOvrn;
+	private JTextField totalPremSun;
+	private JTextField totalPremLeadT;
+	private JTextField totalHoliday;
+	private JLabel blankRow1 = new JLabel(" ");
+	private JLabel blankRow2 = new JLabel(" ");
+	private JLabel blankRow3 = new JLabel(" ");
 
 	public UserInterface() {
 		super("Pay Calculator");
@@ -146,9 +188,8 @@ public class UserInterface extends JFrame {
 			payNoOT.setEditable(false);
 			payNoOTList.add(payNoOT);
 			JTextField payPremOp = new JTextField(Main.calcValueList.get(i)
-					.getPayPremOp()
-					.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
-					WIDTH_TEXT_WIDE);
+					.getPayPremOp().setScale(PREC2, BigDecimal.ROUND_HALF_EVEN)
+					.toString(), WIDTH_TEXT_WIDE);
 			payPremOp.setEditable(false);
 			payPremOpList.add(payPremOp);
 			JTextField payPremAftn = new JTextField(Main.calcValueList.get(i)
@@ -185,7 +226,181 @@ public class UserInterface extends JFrame {
 			// arraylists in class
 		}
 
-		// TODO create individual objects for summary info
+		// week 1 summary fields
+		summaryLabel1 = new JLabel(WEEK1TOTAL_LABEL);
+		summaryWeek1Hrs = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumHrs().setScale(PREC2, BigDecimal.ROUND_HALF_EVEN)
+				.toString(), WIDTH_TEXT);
+		summaryWeek1Hrs.setEditable(false);
+		summaryWeek1SickHrs = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumSick().setScale(PREC2, BigDecimal.ROUND_HALF_EVEN)
+				.toString(), WIDTH_TEXT);
+		summaryWeek1SickHrs.setEditable(false);
+		summaryWeek1YesOTStr = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumYesOTStr()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDER);
+		summaryWeek1YesOTStr.setEditable(false);
+		summaryWeek1YesOTOT = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumYesOTOT()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDER);
+		summaryWeek1YesOTOT.setEditable(false);
+		summaryWeek1NoOT = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumNoOT().setScale(PREC2, BigDecimal.ROUND_HALF_EVEN)
+				.toString(), WIDTH_TEXT_WIDER);
+		summaryWeek1NoOT.setEditable(false);
+		summaryWeek1PremOp = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumPremOp()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		summaryWeek1PremOp.setEditable(false);
+		summaryWeek1PremAftn = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumPremAftn()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		summaryWeek1PremAftn.setEditable(false);
+		summaryWeek1PremOvrn = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumPremOvrn()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		summaryWeek1PremOvrn.setEditable(false);
+		summaryWeek1PremSun = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumPremSun()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		summaryWeek1PremSun.setEditable(false);
+		summaryWeek1PremLeadT = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumPremLeadT()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		summaryWeek1PremLeadT.setEditable(false);
+		summaryWeek1Holiday = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumHoliday()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		summaryWeek1Holiday.setEditable(false);
+
+		// week 2 summary fields
+		summaryLabel2 = new JLabel(WEEK2TOTAL_LABEL);
+		summaryWeek2Hrs = new JTextField(Main.weekValueList.get(2)
+				.getWeekAccumHrs().setScale(PREC2, BigDecimal.ROUND_HALF_EVEN)
+				.toString(), WIDTH_TEXT);
+		summaryWeek2Hrs.setEditable(false);
+		summaryWeek2SickHrs = new JTextField(Main.weekValueList.get(2)
+				.getWeekAccumSick().setScale(PREC2, BigDecimal.ROUND_HALF_EVEN)
+				.toString(), WIDTH_TEXT);
+		summaryWeek2SickHrs.setEditable(false);
+		summaryWeek2YesOTStr = new JTextField(Main.weekValueList.get(2)
+				.getWeekAccumYesOTStr()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDER);
+		summaryWeek2YesOTStr.setEditable(false);
+		summaryWeek2YesOTOT = new JTextField(Main.weekValueList.get(2)
+				.getWeekAccumYesOTOT()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDER);
+		summaryWeek2YesOTOT.setEditable(false);
+		summaryWeek2NoOT = new JTextField(Main.weekValueList.get(2)
+				.getWeekAccumNoOT().setScale(PREC2, BigDecimal.ROUND_HALF_EVEN)
+				.toString(), WIDTH_TEXT_WIDER);
+		summaryWeek2NoOT.setEditable(false);
+		summaryWeek2PremOp = new JTextField(Main.weekValueList.get(2)
+				.getWeekAccumPremOp()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		summaryWeek2PremOp.setEditable(false);
+		summaryWeek2PremAftn = new JTextField(Main.weekValueList.get(2)
+				.getWeekAccumPremAftn()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		summaryWeek2PremAftn.setEditable(false);
+		summaryWeek2PremOvrn = new JTextField(Main.weekValueList.get(2)
+				.getWeekAccumPremOvrn()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		summaryWeek2PremOvrn.setEditable(false);
+		summaryWeek2PremSun = new JTextField(Main.weekValueList.get(2)
+				.getWeekAccumPremSun()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		summaryWeek2PremSun.setEditable(false);
+		summaryWeek2PremLeadT = new JTextField(Main.weekValueList.get(2)
+				.getWeekAccumPremLeadT()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		summaryWeek2PremLeadT.setEditable(false);
+		summaryWeek2Holiday = new JTextField(Main.weekValueList.get(2)
+				.getWeekAccumHoliday()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		summaryWeek2Holiday.setEditable(false);
+
+		// totals elements
+		totalLabel = new JLabel(TOTALLABEL);
+		totalHrs = new JTextField(Main.weekValueList.get(1).getWeekAccumHrs()
+				.add(Main.weekValueList.get(2).getWeekAccumHrs())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT);
+		totalHrs.setEditable(false);
+		totalSick = new JTextField(Main.weekValueList.get(1).getWeekAccumSick()
+				.add(Main.weekValueList.get(2).getWeekAccumSick())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT);
+		totalSick.setEditable(false);
+		totalYesOTStr = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumYesOTStr()
+				.add(Main.weekValueList.get(2).getWeekAccumYesOTStr())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDER);
+		totalYesOTStr.setEditable(false);
+		totalYesOTOT = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumYesOTOT()
+				.add(Main.weekValueList.get(2).getWeekAccumYesOTOT())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDER);
+		totalYesOTOT.setEditable(false);
+		totalNoOT = new JTextField(Main.weekValueList.get(1).getWeekAccumNoOT()
+				.add(Main.weekValueList.get(2).getWeekAccumNoOT())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDER);
+		totalNoOT.setEditable(false);
+		totalPremOp = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumPremOp()
+				.add(Main.weekValueList.get(2).getWeekAccumPremOp())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		totalPremOp.setEditable(false);
+		totalPremAftn = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumPremAftn()
+				.add(Main.weekValueList.get(2).getWeekAccumPremAftn())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		totalPremAftn.setEditable(false);
+		totalPremOvrn = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumPremOvrn()
+				.add(Main.weekValueList.get(2).getWeekAccumPremOvrn())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		totalPremOvrn.setEditable(false);
+		totalPremSun = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumPremSun()
+				.add(Main.weekValueList.get(2).getWeekAccumPremSun())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		totalPremSun.setEditable(false);
+		totalPremLeadT = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumPremLeadT()
+				.add(Main.weekValueList.get(2).getWeekAccumPremLeadT())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		totalPremLeadT.setEditable(false);
+		totalHoliday = new JTextField(Main.weekValueList.get(1)
+				.getWeekAccumHoliday()
+				.add(Main.weekValueList.get(2).getWeekAccumHoliday())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString(),
+				WIDTH_TEXT_WIDE);
+		totalHoliday.setEditable(false);
 
 		// TODO create "calculate" and "reset" buttons
 
@@ -284,10 +499,35 @@ public class UserInterface extends JFrame {
 				innerPanel.add(payHolidayList.get(y - OFFSET1), cst);
 				break;
 			case 9:
-				// subtotal stuff here
+				innerPanel.add(summaryWeek1Hrs, cst);
+				cst.gridx = 1;
+				innerPanel.add(summaryWeek1SickHrs, cst);
+				cst.gridwidth = 5;
+				cst.gridx = 2;
+				innerPanel.add(summaryLabel1, cst);
+				cst.gridwidth = 1;
+				cst.gridx = 7;
+				innerPanel.add(summaryWeek1YesOTStr, cst);
+				cst.gridx = 8;
+				innerPanel.add(summaryWeek1YesOTOT, cst);
+				cst.gridx = 9;
+				innerPanel.add(summaryWeek1NoOT, cst);
+				cst.gridx = 10;
+				innerPanel.add(summaryWeek1PremOp, cst);
+				cst.gridx = 11;
+				innerPanel.add(summaryWeek1PremAftn, cst);
+				cst.gridx = 12;
+				innerPanel.add(summaryWeek1PremOvrn, cst);
+				cst.gridx = 13;
+				innerPanel.add(summaryWeek1PremSun, cst);
+				cst.gridx = 14;
+				innerPanel.add(summaryWeek1PremLeadT, cst);
+				cst.gridx = 15;
+				innerPanel.add(summaryWeek1Holiday, cst);
 				break;
 			case 10:
-				// blank row here
+				cst.gridwidth = 16;
+				innerPanel.add(blankRow1, cst);
 				break;
 			case 11:
 			case 12:
@@ -329,13 +569,65 @@ public class UserInterface extends JFrame {
 				innerPanel.add(payHolidayList.get(y - OFFSET2), cst);
 				break;
 			case 18:
-				// subtotal stuff here
+				innerPanel.add(summaryWeek2Hrs, cst);
+				cst.gridx = 1;
+				innerPanel.add(summaryWeek2SickHrs, cst);
+				cst.gridwidth = 5;
+				cst.gridx = 2;
+				innerPanel.add(summaryLabel2, cst);
+				cst.gridwidth = 1;
+				cst.gridx = 7;
+				innerPanel.add(summaryWeek2YesOTStr, cst);
+				cst.gridx = 8;
+				innerPanel.add(summaryWeek2YesOTOT, cst);
+				cst.gridx = 9;
+				innerPanel.add(summaryWeek2NoOT, cst);
+				cst.gridx = 10;
+				innerPanel.add(summaryWeek2PremOp, cst);
+				cst.gridx = 11;
+				innerPanel.add(summaryWeek2PremAftn, cst);
+				cst.gridx = 12;
+				innerPanel.add(summaryWeek2PremOvrn, cst);
+				cst.gridx = 13;
+				innerPanel.add(summaryWeek2PremSun, cst);
+				cst.gridx = 14;
+				innerPanel.add(summaryWeek2PremLeadT, cst);
+				cst.gridx = 15;
+				innerPanel.add(summaryWeek2Holiday, cst);
 				break;
 			case 19:
-				// blank row here
+				cst.gridwidth = 16;
+				innerPanel.add(blankRow2, cst);
 				break;
 			case 20:
-				// totals here
+				innerPanel.add(totalHrs, cst);
+				cst.gridx = 1;
+				innerPanel.add(totalSick, cst);
+				cst.gridwidth = 5;
+				cst.gridx = 2;
+				innerPanel.add(totalLabel, cst);
+				cst.gridwidth = 1;
+				cst.gridx = 7;
+				innerPanel.add(totalYesOTStr, cst);
+				cst.gridx = 8;
+				innerPanel.add(totalYesOTOT, cst);
+				cst.gridx = 9;
+				innerPanel.add(totalNoOT, cst);
+				cst.gridx = 10;
+				innerPanel.add(totalPremOp, cst);
+				cst.gridx = 11;
+				innerPanel.add(totalPremAftn, cst);
+				cst.gridx = 12;
+				innerPanel.add(totalPremOvrn, cst);
+				cst.gridx = 13;
+				innerPanel.add(totalPremSun, cst);
+				cst.gridx = 14;
+				innerPanel.add(totalPremLeadT, cst);
+				cst.gridx = 15;
+				innerPanel.add(totalHoliday, cst);
+				break;
+			case 21:
+				// TODO buttons
 				break;
 			default:
 				break;
@@ -359,7 +651,7 @@ public class UserInterface extends JFrame {
 			calculate();
 		}
 	};
-	
+
 	private final ActionListener setUsePremOp = new ActionListener() {
 
 		@Override
@@ -379,7 +671,8 @@ public class UserInterface extends JFrame {
 			// JObjects
 			// this is because entering in fields does NOT set them
 			// !!!
-			// TODO read all fields into punch item, run calc method, update pay values
+			// TODO read all fields into punch item, run calc method, update pay
+			// values
 			calculate();
 		}
 	};
@@ -390,7 +683,7 @@ public class UserInterface extends JFrame {
 			clearPayValues();
 		}
 	};
-	
+
 	private void calculate() {
 		GenParam.setRateHourly(new BigDecimal(inputHourlyRate.getText()));
 		GenParam.setUsePremOp(usePremOpCheck.isSelected());
@@ -399,14 +692,23 @@ public class UserInterface extends JFrame {
 		}
 		clearPayValues();
 		for (int i = 1; i <= 14; i++) {
-			Main.punchList.get(i).setHoursYesOT(new BigDecimal(hoursYesOTList.get(i).getText()));
-			Main.punchList.get(i).setHoursNoOT(new BigDecimal(hoursNoOTList.get(i).getText()));
-			Main.punchList.get(i).setUsePremAftn(usePremAftnList.get(i).isSelected());
-			Main.punchList.get(i).setUsePremOvrn(usePremOvrnList.get(i).isSelected());
-			Main.punchList.get(i).setUsePremSun(usePremSunList.get(i).isSelected());
-			Main.punchList.get(i).setUsePremLeadT(usePremLeadTList.get(i).isSelected());
-			Main.punchList.get(i).setUseHoliday(useHolidayList.get(i).isSelected());
-			Calculations.calc(Main.punchList.get(i), Main.calcValueList.get(i), Main.weekValueList.get(Main.calcValueList.get(i).getDateWeek()));
+			Main.punchList.get(i).setHoursYesOT(
+					new BigDecimal(hoursYesOTList.get(i).getText()));
+			Main.punchList.get(i).setHoursNoOT(
+					new BigDecimal(hoursNoOTList.get(i).getText()));
+			Main.punchList.get(i).setUsePremAftn(
+					usePremAftnList.get(i).isSelected());
+			Main.punchList.get(i).setUsePremOvrn(
+					usePremOvrnList.get(i).isSelected());
+			Main.punchList.get(i).setUsePremSun(
+					usePremSunList.get(i).isSelected());
+			Main.punchList.get(i).setUsePremLeadT(
+					usePremLeadTList.get(i).isSelected());
+			Main.punchList.get(i).setUseHoliday(
+					useHolidayList.get(i).isSelected());
+			Calculations.calc(Main.punchList.get(i), Main.calcValueList.get(i),
+					Main.weekValueList.get(Main.calcValueList.get(i)
+							.getDateWeek()));
 		}
 		updatePayValues();
 	}
@@ -415,9 +717,12 @@ public class UserInterface extends JFrame {
 		for (int i = 0; i <= 14; i++) {
 			Main.calcValueList.get(i).zero();
 		}
+		for (int i = 0; i <= 2; i++) {
+			Main.weekValueList.get(i).zeroWeek();
+		}
 		updatePayValues();
 	}
-	
+
 	private void updatePayValues() {
 		for (int i = 0; i <= 14; i++) {
 			payYesOTStrList.get(i).setText(
@@ -457,36 +762,126 @@ public class UserInterface extends JFrame {
 							.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN)
 							.toString());
 		}
+		summaryWeek1Hrs.setText(Main.weekValueList.get(1).getWeekAccumHrs()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek1SickHrs.setText(Main.weekValueList.get(1)
+				.getWeekAccumSick().setScale(PREC2, BigDecimal.ROUND_HALF_EVEN)
+				.toString());
+		summaryWeek1YesOTStr.setText(Main.weekValueList.get(1)
+				.getWeekAccumYesOTStr()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek1YesOTOT.setText(Main.weekValueList.get(1)
+				.getWeekAccumYesOTOT()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek1NoOT.setText(Main.weekValueList.get(1).getWeekAccumNoOT()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek1PremOp.setText(Main.weekValueList.get(1)
+				.getWeekAccumPremOp()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek1PremAftn.setText(Main.weekValueList.get(1)
+				.getWeekAccumPremAftn()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek1PremOvrn.setText(Main.weekValueList.get(1)
+				.getWeekAccumPremOvrn()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek1PremSun.setText(Main.weekValueList.get(1)
+				.getWeekAccumPremSun()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek1PremLeadT.setText(Main.weekValueList.get(1)
+				.getWeekAccumPremLeadT()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek1Holiday.setText(Main.weekValueList.get(1)
+				.getWeekAccumHoliday()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+
+		summaryWeek2Hrs.setText(Main.weekValueList.get(2).getWeekAccumHrs()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek2SickHrs.setText(Main.weekValueList.get(2)
+				.getWeekAccumSick().setScale(PREC2, BigDecimal.ROUND_HALF_EVEN)
+				.toString());
+		summaryWeek2YesOTStr.setText(Main.weekValueList.get(2)
+				.getWeekAccumYesOTStr()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek2YesOTOT.setText(Main.weekValueList.get(2)
+				.getWeekAccumYesOTOT()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek2NoOT.setText(Main.weekValueList.get(2).getWeekAccumNoOT()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek2PremOp.setText(Main.weekValueList.get(2)
+				.getWeekAccumPremOp()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek2PremAftn.setText(Main.weekValueList.get(2)
+				.getWeekAccumPremAftn()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek2PremOvrn.setText(Main.weekValueList.get(2)
+				.getWeekAccumPremOvrn()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek2PremSun.setText(Main.weekValueList.get(2)
+				.getWeekAccumPremSun()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek2PremLeadT.setText(Main.weekValueList.get(2)
+				.getWeekAccumPremLeadT()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		summaryWeek2Holiday.setText(Main.weekValueList.get(2)
+				.getWeekAccumHoliday()
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		totalHrs.setText(Main.weekValueList.get(1).getWeekAccumHrs()
+				.add(Main.weekValueList.get(2).getWeekAccumHrs())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		totalSick.setText(Main.weekValueList.get(1).getWeekAccumSick()
+				.add(Main.weekValueList.get(2).getWeekAccumSick())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		totalYesOTStr.setText(Main.weekValueList.get(1).getWeekAccumYesOTStr()
+				.add(Main.weekValueList.get(2).getWeekAccumYesOTStr())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		totalYesOTOT.setText(Main.weekValueList.get(1).getWeekAccumYesOTOT()
+				.add(Main.weekValueList.get(2).getWeekAccumYesOTOT())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		totalNoOT.setText(Main.weekValueList.get(1).getWeekAccumNoOT()
+				.add(Main.weekValueList.get(2).getWeekAccumNoOT())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		totalPremOp.setText(Main.weekValueList.get(1).getWeekAccumPremOp()
+				.add(Main.weekValueList.get(2).getWeekAccumPremOp())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		totalPremAftn.setText(Main.weekValueList.get(1).getWeekAccumPremAftn()
+				.add(Main.weekValueList.get(2).getWeekAccumPremAftn())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		totalPremOvrn.setText(Main.weekValueList.get(1).getWeekAccumPremOvrn()
+				.add(Main.weekValueList.get(2).getWeekAccumPremOvrn())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		totalPremSun.setText(Main.weekValueList.get(1).getWeekAccumPremSun()
+				.add(Main.weekValueList.get(2).getWeekAccumPremSun())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		totalPremLeadT.setText(Main.weekValueList.get(1)
+				.getWeekAccumPremLeadT()
+				.add(Main.weekValueList.get(2).getWeekAccumPremLeadT())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		totalHoliday.setText(Main.weekValueList.get(1).getWeekAccumHoliday()
+				.add(Main.weekValueList.get(2).getWeekAccumHoliday())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
 	}
 
 	/*
-	private JTextField buildInputHours(int num, String desc) {
-		// TODO text field for inputting hoursYesOT and hoursNoOT
-		JTextField textfield = new JTextField(Integer.toString(num));
-		textfield.putClientProperty(ID_PROPERTY, Integer.valueOf(num));
-		textfield.putClientProperty(TYPE_PROPERTY, desc);
-		textfield.addActionListener(clearListener);
-		return textfield;
-	}
+	 * private JTextField buildInputHours(int num, String desc) { // TODO text
+	 * field for inputting hoursYesOT and hoursNoOT JTextField textfield = new
+	 * JTextField(Integer.toString(num));
+	 * textfield.putClientProperty(ID_PROPERTY, Integer.valueOf(num));
+	 * textfield.putClientProperty(TYPE_PROPERTY, desc);
+	 * textfield.addActionListener(clearListener); return textfield; }
+	 * 
+	 * private JCheckBox buildCheckbox(int num, String desc) { // TODO every
+	 * boolean option will require a check box JCheckBox checkbox = new
+	 * JCheckBox(Integer.toString(num)); checkbox.putClientProperty(ID_PROPERTY,
+	 * Integer.valueOf(num)); checkbox.putClientProperty(TYPE_PROPERTY, desc);
+	 * checkbox.addActionListener(clearListener); return checkbox; }
+	 * 
+	 * private JLabel buildOutputLabel(int num, String desc) { // TODO these
+	 * labels will be for all daily calcValues JLabel label = new
+	 * JLabel(Integer.toString(num)); label.putClientProperty(ID_PROPERTY,
+	 * Integer.valueOf(num)); label.putClientProperty(TYPE_PROPERTY, desc);
+	 * return label; }
+	 */
 
-	private JCheckBox buildCheckbox(int num, String desc) {
-		// TODO every boolean option will require a check box
-		JCheckBox checkbox = new JCheckBox(Integer.toString(num));
-		checkbox.putClientProperty(ID_PROPERTY, Integer.valueOf(num));
-		checkbox.putClientProperty(TYPE_PROPERTY, desc);
-		checkbox.addActionListener(clearListener);
-		return checkbox;
-	}
-
-	private JLabel buildOutputLabel(int num, String desc) {
-		// TODO these labels will be for all daily calcValues
-		JLabel label = new JLabel(Integer.toString(num));
-		label.putClientProperty(ID_PROPERTY, Integer.valueOf(num));
-		label.putClientProperty(TYPE_PROPERTY, desc);
-		return label;
-	}
-	*/
-	
 	/*
 	 * @Override public void actionPerformed(ActionEvent e) { // TODO
 	 * Auto-generated method stub if (e.getSource()==inputHourlyRate) { // TODO
