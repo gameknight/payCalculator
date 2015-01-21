@@ -115,10 +115,28 @@ public class UserInterface extends JFrame {
 	private JLabel blankRow1 = new JLabel(" ");
 	private JLabel blankRow2 = new JLabel(" ");
 	private JLabel blankRow3 = new JLabel(" ");
+	private JButton preDefBuDay;
+	private JButton preDefDayAftn;
+	private JButton preDefAftnAftn;
+	private JButton preDefAftnOvrn;
+	private JButton preDefOvrnBu;
+
+
+
 
 	public UserInterface() {
 		super("Pay Calculator");
-
+		preDefBuDay = new JButton("B/D");
+		preDefBuDay.addActionListener(populateBuDay);
+		preDefDayAftn = new JButton("D/A");
+		preDefDayAftn.addActionListener(populateDayAftn);
+		preDefAftnAftn = new JButton("A/A");
+		preDefAftnAftn.addActionListener(populateAftnAftn);
+		preDefAftnOvrn = new JButton("A/O");
+		preDefAftnOvrn.addActionListener(populateAftnOvrn);
+		preDefOvrnBu = new JButton("O/B");
+		preDefOvrnBu.addActionListener(populateOvrnBu);
+		
 		// JLabel blankLabel = new JLabel(
 		// "<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</html>");
 		JLabel hoursYesOTLabel = new JLabel(HOURSYESOT_LABEL);
@@ -627,7 +645,20 @@ public class UserInterface extends JFrame {
 				innerPanel.add(totalHoliday, cst);
 				break;
 			case 21:
-				// TODO buttons
+				cst.gridwidth = 16;
+				innerPanel.add(blankRow3, cst);
+/*				// move these items to a flowlayout after the gridbaglayout
+ 				cst.gridx = 10;
+				innerPanel.add(preDefBuDay, cst);
+				cst.gridx = 11; 
+				innerPanel.add(preDefDayAftn, cst);
+				cst.gridx = 12;
+				innerPanel.add(preDefAftnAftn, cst);
+				cst.gridx = 13;
+				innerPanel.add(preDefAftnOvrn, cst);
+				cst.gridx = 14;
+				innerPanel.add(preDefOvrnBu, cst);
+*/
 				break;
 			default:
 				break;
@@ -859,6 +890,61 @@ public class UserInterface extends JFrame {
 		totalHoliday.setText(Main.weekValueList.get(1).getWeekAccumHoliday()
 				.add(Main.weekValueList.get(2).getWeekAccumHoliday())
 				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+	}
+	
+	private final ActionListener populateBuDay = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			List<List<String>> list = PreDefPunches.buDay;
+			populatePreDefined(list);
+		}
+	};
+
+	private final ActionListener populateDayAftn = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			List<List<String>> list = PreDefPunches.dayAftn;
+			populatePreDefined(list);
+		}
+	};
+
+	private final ActionListener populateAftnAftn = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			List<List<String>> list = PreDefPunches.aftnAftn;
+			populatePreDefined(list);
+		}
+	};
+
+	private final ActionListener populateAftnOvrn = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			List<List<String>> list = PreDefPunches.AftnOvrn;
+			populatePreDefined(list);
+		}
+	};
+
+	private final ActionListener populateOvrnBu = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			List<List<String>> list = PreDefPunches.OvrnBu;
+			populatePreDefined(list);
+		}
+	};
+
+	private void populatePreDefined(List<List<String>> list) {
+		for (int i = 0; i < list.size(); i++) {
+			int day = i + 1;
+			hoursYesOTList.get(day).setText(list.get(i).get(0));
+			usePremAftnList.get(day).setSelected(new Boolean (list.get(i).get(1)));
+			usePremOvrnList.get(day).setSelected(new Boolean (list.get(i).get(2)));
+			usePremSunList.get(day).setSelected(new Boolean (list.get(i).get(3)));
+		}
 	}
 
 	/*
