@@ -13,7 +13,7 @@ public class PreDefPunches {
 	private final static String HRS0 = new String("0");
 	private final static String HRS8B = new String("8");
 	private final static String HRS8 = new String("8.2");
-	private final static String HRS11 = new String("11.2");
+	private final static String HRS11 = new String("12.2");
 	private final static String TR = "true";
 	private final static String FA = "false";
 	private static List<String> noWork = Arrays.asList(HRS0, FA, FA, FA);
@@ -30,4 +30,5 @@ public class PreDefPunches {
 	protected static List<List<String>> aftnAftn = Arrays.asList(noWork, noWork, wdBackUp, wdAftn, wdAftn, weAftn, weAftnSun, wdAftn, wdAftn, wdAftn, noWork, noWork, weOvrn, weOvrnSun);
 	protected static List<List<String>> AftnOvrn = Arrays.asList(wdAftn, wdAftn, wdAftn, noWork, noWork, weOvrn, weOvrnSun, wdOvrn, wdOvrn, wdOvrn, wdOvrn, wdOvrn, noWork, noWork);
 	protected static List<List<String>> OvrnBu = Arrays.asList(wdOvrn, wdOvrn, wdOvrn, wdOvrn, wdOvrn, noWork, noWork, wdBackUp, wdBackUp, wdBackUp, wdBackUp, wdBackUp, noWork, noWork);
+	protected static List<List<String>> Zero = Arrays.asList(noWork, noWork, noWork, noWork, noWork, noWork, noWork, noWork, noWork, noWork, noWork, noWork, noWork, noWork);
 }

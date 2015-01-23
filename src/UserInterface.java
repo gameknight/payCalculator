@@ -1,10 +1,17 @@
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.*;
@@ -19,44 +26,51 @@ import javax.swing.*;
  */
 public class UserInterface extends JFrame {
 
-	private static final String HOURSNOOT_LABEL = "Sick Hours";
-	private static final String HOURSYESOT_LABEL = "Reg. Hours";
-	private static final String USEPREMAFTN_LABEL = "Aftn";
-	private static final String USEPREMOVRN_LABEL = "Ovrn";
-	private static final String USEPREMSUN_LABEL = "Sun";
-	private static final String USEPREMLEADT_LABEL = "LeadT";
-	private static final String USEHOLIDAY_LABEL = "Holiday";
-	private static final String PAYYESOTSTR_LABEL = "Str. Pay";
-	private static final String PAYYESOTOT_LABEL = "OT Pay";
-	private static final String PAYNOOT_LABEL = "Sick Pay";
-	private static final String PAYPREMOP_LABEL = "Oper Pr.";
-	private static final String PAYPREMAFTN_LABEL = "Aftn Pr.";
-	private static final String PAYPREMOVRN_LABEL = "Ovrn Pr.";
-	private static final String PAYPREMSUN_LABEL = "Sun Pr.";
-	private static final String PAYPREMLEADT_LABEL = "LdT Pr.";
-	private static final String PAYHOLIDAY_LABEL = "Holiday";
-	private static final String WEEK1TOTAL_LABEL = "===== Week 1 Totals =====";
-	private static final String WEEK2TOTAL_LABEL = "===== Week 2 Totals =====";
+	private final String HOURSNOOT_LABEL = "Sick Hours";
+	private final String HOURSYESOT_LABEL = "Reg. Hours";
+	private final String USEPREMAFTN_LABEL = "Aftn";
+	private final String USEPREMOVRN_LABEL = "Ovrn";
+	private final String USEPREMSUN_LABEL = "Sun";
+	private final String USEPREMLEADT_LABEL = "LeadT";
+	private final String USEHOLIDAY_LABEL = "Holiday";
+	private final String PAYYESOTSTR_LABEL = "Str. Pay";
+	private final String PAYYESOTOT_LABEL = "OT Pay";
+	private final String PAYNOOT_LABEL = "Sick Pay";
+	private final String PAYPREMOP_LABEL = "Oper Pr.";
+	private final String PAYPREMAFTN_LABEL = "Aftn Pr.";
+	private final String PAYPREMOVRN_LABEL = "Ovrn Pr.";
+	private final String PAYPREMSUN_LABEL = "Sun Pr.";
+	private final String PAYPREMLEADT_LABEL = "LdT Pr.";
+	private final String PAYHOLIDAY_LABEL = "Holiday";
+	private final String WEEK1TOTAL_LABEL = "===== Week 1 Totals =====";
+	private final String WEEK2TOTAL_LABEL = "===== Week 2 Totals =====";
+	// private final String OVERALL_YESOTSTR = "Reg.";
+	// private final String OVERALL_YESOTOT = "OT";
+	// private final String OVERALL_NOOT = "Sick";
+	// private final String OVERALL_HOLIDAY = "Holiday";
+	// private final String OVERALL_HRS = "Hrs";
+	// private final String OVERALL_PREM = "Prem";
+	private final String OVERALL_TOTAL = "Total Pay";
 	private final String TOTALLABEL = "==== Pay Period Totals ====";
 	private static final long serialVersionUID = 1L;
-	private static final String ID_PROPERTY = "ID NUMBER";
-	private static final String TYPE_PROPERTY = "TYPE_OF_COMPONENT";
-	private static final BigDecimal ZERO = new BigDecimal("0.00");
+	// private static final String ID_PROPERTY = "ID NUMBER";
+	// private static final String TYPE_PROPERTY = "TYPE_OF_COMPONENT";
+	// private static final BigDecimal ZERO = new BigDecimal("0.00");
 	private static final int OFFSET1 = 1;
 	private static final int OFFSET2 = 3;
-	protected static final int WIDTH = 1000;
-	protected static final int HEIGHT = 720;
+	protected static final int WIDTH = 1080;
+	protected static final int HEIGHT = 780;
 	private static final int WIDTH_TEXT = 3;
 	private static final int WIDTH_TEXT_WIDE = 4;
 	private static final int WIDTH_TEXT_WIDER = 5;
 	protected static final int ROWS = 22;
 	protected static final int COLS = 16;
-	private static final int SPACER1 = 50;
-	private static final int SPACER2 = 500;
-	private static final int PREC0 = 0;
-	private static final int PREC1 = 1;
+	// private static final int SPACER1 = 50;
+	// private static final int SPACER2 = 500;
+	// private static final int PREC0 = 0;
+	// private static final int PREC1 = 1;
 	private static final int PREC2 = 2;
-	private static final int PREC3 = 3;
+	// private static final int PREC3 = 3;
 	private JLabel windowTitle;
 	private JLabel inputHourlyRateLabel;
 	private JTextField inputHourlyRate;
@@ -121,22 +135,31 @@ public class UserInterface extends JFrame {
 	private JButton preDefAftnAftn;
 	private JButton preDefAftnOvrn;
 	private JButton preDefOvrnBu;
-
-
+	private JButton bCalc;
+	private JButton bReset;
+	private JPanel buttonPanel;
+	/*
+	 * private JTextField overallYesOTStr; private JLabel overallYesOTStrLabel;
+	 * private JTextField overallYesOTStrHrs; private JLabel
+	 * overallYesOTStrHrsLabel; private JTextField overallYesOTOT; private
+	 * JLabel overallYesOTOTLabel; private JTextField overallYesOTOTHrs; private
+	 * JLabel overallYesOTOTHrsLabel; private JTextField overallNoOT; private
+	 * JLabel overallNoOTLabel; private JTextField overallNoOTHrs; private
+	 * JLabel overallNoOTHrsLabel; private JTextField overallHoliday; private
+	 * JLabel overallHolidayLabel; private JTextField overallHolidayHrs; private
+	 * JLabel overallHolidayHrsLabel;
+	 */
+	private JTextField overallPrem;
+	// private JLabel overallPremLabel;
+	private JTextField overallTotal;
+	private JLabel overallTotalLabel;
+	// private JPanel overallPanel;
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss-");
+	private String myDateString;
 
 	public UserInterface() {
 		super("Pay Calculator");
-		preDefBuDay = new JButton("B/D");
-		preDefBuDay.addActionListener(populateBuDay);
-		preDefDayAftn = new JButton("D/A");
-		preDefDayAftn.addActionListener(populateDayAftn);
-		preDefAftnAftn = new JButton("A/A");
-		preDefAftnAftn.addActionListener(populateAftnAftn);
-		preDefAftnOvrn = new JButton("A/O");
-		preDefAftnOvrn.addActionListener(populateAftnOvrn);
-		preDefOvrnBu = new JButton("O/B");
-		preDefOvrnBu.addActionListener(populateOvrnBu);
-		
+
 		// JLabel blankLabel = new JLabel(
 		// "<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</html>");
 		JLabel hoursYesOTLabel = new JLabel(HOURSYESOT_LABEL);
@@ -155,7 +178,7 @@ public class UserInterface extends JFrame {
 		JLabel payPremSunLabel = new JLabel(PAYPREMSUN_LABEL);
 		JLabel payPremLeadTLabel = new JLabel(PAYPREMLEADT_LABEL);
 		JLabel payHolidayLabel = new JLabel(PAYHOLIDAY_LABEL);
-		// TODO use for loop to instantiate 15 objects of each of the above
+		// use for loop to instantiate 15 objects of each of the above
 		for (int i = 0; i <= 14; i++) {
 			JTextField hoursYesOT = new JTextField(Main.punchList.get(i)
 					.getHoursYesOT().toString(), WIDTH_TEXT);
@@ -420,19 +443,67 @@ public class UserInterface extends JFrame {
 				WIDTH_TEXT_WIDE);
 		totalHoliday.setEditable(false);
 
-		// TODO create "calculate" and "reset" buttons
+		// create overall fields and labels
+		/*
+		 * overallYesOTStr = new JTextField("0", WIDTH_TEXT_WIDER);
+		 * overallYesOTStr.setEditable(false); overallYesOTStrLabel = new
+		 * JLabel(OVERALL_YESOTSTR); overallYesOTStrHrs = new JTextField("0",
+		 * WIDTH_TEXT); overallYesOTStrHrs.setEditable(false);
+		 * overallYesOTStrHrsLabel = new JLabel(OVERALL_HRS); overallYesOTOT =
+		 * new JTextField("0", WIDTH_TEXT_WIDER);
+		 * overallYesOTOT.setEditable(false); overallYesOTOTLabel = new
+		 * JLabel(OVERALL_YESOTOT); overallYesOTOTHrs = new JTextField("0",
+		 * WIDTH_TEXT); overallYesOTOTHrs.setEditable(false);
+		 * overallYesOTOTHrsLabel = new JLabel(OVERALL_HRS); overallNoOT = new
+		 * JTextField("0", WIDTH_TEXT_WIDER); overallNoOT.setEditable(false);
+		 * overallNoOTLabel = new JLabel(OVERALL_NOOT); overallNoOTHrs = new
+		 * JTextField("0", WIDTH_TEXT); overallNoOTHrs.setEditable(false);
+		 * overallNoOTHrsLabel = new JLabel(OVERALL_HRS); overallHoliday = new
+		 * JTextField("0", WIDTH_TEXT_WIDER); overallHoliday.setEditable(false);
+		 * overallHolidayLabel = new JLabel(OVERALL_HOLIDAY); overallHolidayHrs
+		 * = new JTextField("0", WIDTH_TEXT);
+		 * overallHolidayHrs.setEditable(false); overallHolidayHrsLabel = new
+		 * JLabel(OVERALL_HRS);
+		 */
+		overallPrem = new JTextField("0", WIDTH_TEXT_WIDE);
+		overallPrem.setEditable(false);
+		// overallPremLabel = new JLabel(OVERALL_PREM);
+		overallTotal = new JTextField("0", WIDTH_TEXT_WIDER);
+		overallTotal.setEditable(false);
+		overallTotalLabel = new JLabel(OVERALL_TOTAL);
 
-		// TODO create title and add
+		// create "calculate" and "reset" buttons
+		bCalc = new JButton("Calculate");
+		bCalc.addActionListener(calculateAll);
+		bReset = new JButton("Reset");
+		bReset.addActionListener(clearListener);
+
+		// create predefined field buttons
+		preDefBuDay = new JButton("B/D");
+		preDefBuDay.addActionListener(populateBuDay);
+		preDefDayAftn = new JButton("D/A");
+		preDefDayAftn.addActionListener(populateDayAftn);
+		preDefAftnAftn = new JButton("A/A");
+		preDefAftnAftn.addActionListener(populateAftnAftn);
+		preDefAftnOvrn = new JButton("A/O");
+		preDefAftnOvrn.addActionListener(populateAftnOvrn);
+		preDefOvrnBu = new JButton("O/B");
+		preDefOvrnBu.addActionListener(populateOvrnBu);
+
+		// create title and add
 		windowTitle = new JLabel(getTitle());
+		windowTitle.setFont(new Font("San-Serif", Font.BOLD, 24));
+		add(Box.createHorizontalStrut(360));
 		add(windowTitle);
+		add(Box.createHorizontalStrut(360));
 
-		// TODO create gridbaglayout panel
+		// create gridbaglayout panel
 		JPanel innerPanel = new JPanel();
 		innerPanel.setLayout(new GridBagLayout());
 		innerPanel.setSize(ROWS, COLS);
 		GridBagConstraints cst = new GridBagConstraints();
 
-		// TODO add all elements to JPanel innerPanels
+		// add all elements to JPanel innerPanels
 		for (int y = 0; y < ROWS; y++) {
 			cst.gridx = GridBagConstraints.RELATIVE;
 			cst.gridy = y;
@@ -647,36 +718,38 @@ public class UserInterface extends JFrame {
 			case 21:
 				cst.gridwidth = 16;
 				innerPanel.add(blankRow3, cst);
-/*				// move these items to a flowlayout after the gridbaglayout
- 				cst.gridx = 10;
-				innerPanel.add(preDefBuDay, cst);
-				cst.gridx = 11; 
-				innerPanel.add(preDefDayAftn, cst);
-				cst.gridx = 12;
-				innerPanel.add(preDefAftnAftn, cst);
-				cst.gridx = 13;
-				innerPanel.add(preDefAftnOvrn, cst);
-				cst.gridx = 14;
-				innerPanel.add(preDefOvrnBu, cst);
-*/
 				break;
 			default:
 				break;
 			}
 		}
 
-		// TODO add the innerPanel
+		// add the innerPanel
 		add(innerPanel);
 
-		// TODO add the buttons for calculating and resettting
+		// add the overall totals
+		// overallPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 24, 5));
 
+		// add the buttons for calculating and resettting
+		buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 20, 5));
+		buttonPanel.add(bCalc);
+		buttonPanel.add(bReset);
+		buttonPanel.add(preDefBuDay);
+		buttonPanel.add(preDefDayAftn);
+		buttonPanel.add(preDefAftnAftn);
+		buttonPanel.add(preDefAftnOvrn);
+		buttonPanel.add(preDefOvrnBu);
+		buttonPanel.add(Box.createHorizontalStrut(240));
+		buttonPanel.add(overallTotalLabel);
+		buttonPanel.add(overallTotal);
+		add(buttonPanel);
 	}
 
 	private final ActionListener setHourlyRate = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO set the hourly rate
+			// set the hourly rate
 			GenParam.setRateHourly(new BigDecimal(inputHourlyRate.getText()));
 			System.out.println(GenParam.getRateHourly());
 			calculate();
@@ -687,7 +760,7 @@ public class UserInterface extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO set the use of operator premium
+			// set the use of operator premium
 			GenParam.setUsePremOp(usePremOpCheck.isSelected());
 			calculate();
 		}
@@ -702,7 +775,7 @@ public class UserInterface extends JFrame {
 			// JObjects
 			// this is because entering in fields does NOT set them
 			// !!!
-			// TODO read all fields into punch item, run calc method, update pay
+			// read all fields into punch item, run calc method, update pay
 			// values
 			calculate();
 		}
@@ -711,6 +784,8 @@ public class UserInterface extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			List<List<String>> list = PreDefPunches.Zero;
+			populatePreDefined(list);
 			clearPayValues();
 		}
 	};
@@ -890,8 +965,44 @@ public class UserInterface extends JFrame {
 		totalHoliday.setText(Main.weekValueList.get(1).getWeekAccumHoliday()
 				.add(Main.weekValueList.get(2).getWeekAccumHoliday())
 				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+
+		/*
+		 * overallYesOTStr.setText(Main.weekValueList.get(1).getWeekAccumYesOTStr
+		 * () .add(Main.weekValueList.get(2).getWeekAccumYesOTStr())
+		 * .setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		 * overallYesOTOT
+		 * .setText(Main.weekValueList.get(1).getWeekAccumYesOTOT()
+		 * .add(Main.weekValueList.get(2).getWeekAccumYesOTOT())
+		 * .setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		 * overallNoOT.setText(Main.weekValueList.get(1).getWeekAccumNoOT()
+		 * .add(Main.weekValueList.get(2).getWeekAccumNoOT()) .setScale(PREC2,
+		 * BigDecimal.ROUND_HALF_EVEN).toString());
+		 * overallHoliday.setText(Main.weekValueList
+		 * .get(1).getWeekAccumHoliday()
+		 * .add(Main.weekValueList.get(2).getWeekAccumHoliday())
+		 * .setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		 */
+		overallPrem.setText(Main.weekValueList.get(1).getWeekAccumPremOp()
+				.add(Main.weekValueList.get(2).getWeekAccumPremOp())
+				.add(Main.weekValueList.get(1).getWeekAccumPremAftn())
+				.add(Main.weekValueList.get(2).getWeekAccumPremAftn())
+				.add(Main.weekValueList.get(1).getWeekAccumPremOvrn())
+				.add(Main.weekValueList.get(2).getWeekAccumPremOvrn())
+				.add(Main.weekValueList.get(1).getWeekAccumPremSun())
+				.add(Main.weekValueList.get(2).getWeekAccumPremSun())
+				.add(Main.weekValueList.get(1).getWeekAccumPremLeadT())
+				.add(Main.weekValueList.get(2).getWeekAccumPremLeadT())
+				.setScale(PREC2, BigDecimal.ROUND_HALF_EVEN).toString());
+		overallTotal.setText(new BigDecimal(totalYesOTStr.getText())
+				.add(new BigDecimal(totalYesOTOT.getText()))
+				.add(new BigDecimal(totalNoOT.getText()))
+				.add(new BigDecimal(totalSick.getText()))
+				.add(new BigDecimal(totalHoliday.getText()))
+				.add(new BigDecimal(overallPrem.getText())).toString());
+		// outputString(); // output text file with info for use to send to HR -
+		// still need to finish
 	}
-	
+
 	private final ActionListener populateBuDay = new ActionListener() {
 
 		@Override
@@ -941,36 +1052,69 @@ public class UserInterface extends JFrame {
 		for (int i = 0; i < list.size(); i++) {
 			int day = i + 1;
 			hoursYesOTList.get(day).setText(list.get(i).get(0));
-			usePremAftnList.get(day).setSelected(new Boolean (list.get(i).get(1)));
-			usePremOvrnList.get(day).setSelected(new Boolean (list.get(i).get(2)));
-			usePremSunList.get(day).setSelected(new Boolean (list.get(i).get(3)));
+			usePremAftnList.get(day).setSelected(
+					new Boolean(list.get(i).get(1)));
+			usePremOvrnList.get(day).setSelected(
+					new Boolean(list.get(i).get(2)));
+			usePremSunList.get(day)
+					.setSelected(new Boolean(list.get(i).get(3)));
+		}
+	}
+
+	// use this method to output pay period information to text file for use
+	// when communicating with HR
+	private void outputString() {
+		myDateString = sdf.format(new Date());
+		BufferedWriter out = null;
+		/*
+		 * try { FileWriter fstream = new FileWriter("out.txt", true); //true
+		 * tells to append data. out = new BufferedWriter(fstream);
+		 * out.write(myDateString + inputHourlyRate.getText()); } catch
+		 * (IOException e) { System.err.println("Error: " + e.getMessage()); }
+		 * finally { if(out != null) { out.close(); } }
+		 */
+		FileWriter fstream = null;
+		try {
+			fstream = new FileWriter("out.txt", true);
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("error has occurred on opening file");
+		}
+		out = new BufferedWriter(fstream);
+		try {
+			out.write(myDateString + inputHourlyRate.getText()
+					+ usePremOpCheck.isSelected() + "\r\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("error occurred on writing to file");
+		}
+		try {
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("error occurred on closing file");
 		}
 	}
 
 	/*
-	 * private JTextField buildInputHours(int num, String desc) { // TODO text
-	 * field for inputting hoursYesOT and hoursNoOT JTextField textfield = new
+	 * private JTextField buildInputHours(int num, String desc) { // text field
+	 * for inputting hoursYesOT and hoursNoOT JTextField textfield = new
 	 * JTextField(Integer.toString(num));
 	 * textfield.putClientProperty(ID_PROPERTY, Integer.valueOf(num));
 	 * textfield.putClientProperty(TYPE_PROPERTY, desc);
 	 * textfield.addActionListener(clearListener); return textfield; }
 	 * 
-	 * private JCheckBox buildCheckbox(int num, String desc) { // TODO every
-	 * boolean option will require a check box JCheckBox checkbox = new
+	 * private JCheckBox buildCheckbox(int num, String desc) { // every boolean
+	 * option will require a check box JCheckBox checkbox = new
 	 * JCheckBox(Integer.toString(num)); checkbox.putClientProperty(ID_PROPERTY,
 	 * Integer.valueOf(num)); checkbox.putClientProperty(TYPE_PROPERTY, desc);
 	 * checkbox.addActionListener(clearListener); return checkbox; }
 	 * 
-	 * private JLabel buildOutputLabel(int num, String desc) { // TODO these
-	 * labels will be for all daily calcValues JLabel label = new
+	 * private JLabel buildOutputLabel(int num, String desc) { // these labels
+	 * will be for all daily calcValues JLabel label = new
 	 * JLabel(Integer.toString(num)); label.putClientProperty(ID_PROPERTY,
 	 * Integer.valueOf(num)); label.putClientProperty(TYPE_PROPERTY, desc);
 	 * return label; }
 	 */
 
-	/*
-	 * @Override public void actionPerformed(ActionEvent e) { // TODO
-	 * Auto-generated method stub if (e.getSource()==inputHourlyRate) { // TODO
-	 * } }
-	 */
 }

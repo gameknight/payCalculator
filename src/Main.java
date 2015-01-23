@@ -27,7 +27,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		// Set all general parameters to starting values
-		GenParam.setRateHourly(new BigDecimal("25.00"));
+		GenParam.setRateHourly(new BigDecimal("30.68"));
 		GenParam.setRatePremOp(new BigDecimal(".85"));
 		GenParam.setRatePremAftn(new BigDecimal(".85"));
 		GenParam.setRatePremOvrn(new BigDecimal(".90"));
