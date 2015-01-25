@@ -52,7 +52,7 @@ public class Calculations {
 		System.out.println("Today's punched hours: " + punch.getHoursYesOT());
 		System.out.println("Today's paid hours: " + hoursPaid);
 		// hours of OT per day based on weekly accumulated hours
-		hoursOT = calcHoursOT(week, hoursPaid);
+		hoursOT = calcHoursOT(week, hoursPaid, punch.getUseHoliday());
 		// set straight pay amount for the day - separates from OT hours of pay
 		day.setPayBaseYesOTStr(calcBaseYesOTStr(week, hoursPaid.subtract(hoursOT)));
 		System.out.println("Straight pay: $" + day.getPayBaseYesOTStr());
@@ -126,11 +126,14 @@ public class Calculations {
 	 * @param hours
 	 */
 
-	private static BigDecimal calcHoursOT(WeekValues week, BigDecimal hours) {
+	private static BigDecimal calcHoursOT(WeekValues week, BigDecimal hours, boolean holiday) {
 		BigDecimal totalOT = new BigDecimal(0);
 		BigDecimal dayOT = new BigDecimal(0);
 		week.addWeekAccumHrs(hours);
 		System.out.println("Hours this week so far: " + week.getWeekAccumHrs());
+		if (holiday){
+			return hours;
+		}
 		if (week.getWeekAccumHrs().compareTo(GenParam.getOvertime()) == 1) {
 			totalOT = week.getWeekAccumHrs().subtract(GenParam.getOvertime());
 		}
@@ -186,8 +189,8 @@ public class Calculations {
 	private static BigDecimal calcPremOp(WeekValues week, BigDecimal hours, BigDecimal otHours) {
 		BigDecimal pay = new BigDecimal(0);
 		pay = pay.add(hours.multiply(GenParam.getRatePremOp()));
-		pay = pay.add(otHours.multiply(GenParam.getRatePremOp()).multiply(
-				GenParam.getRateotprem()));
+//		pay = pay.add(otHours.multiply(GenParam.getRatePremOp()).multiply(GenParam.getRateotprem()));
+		pay = pay.add(otHours.multiply(GenParam.getRatePremOp()));
 		week.addWeekAccumPremOp(pay);
 		return pay;
 	}
@@ -199,8 +202,8 @@ public class Calculations {
 	private static BigDecimal calcPremAftn(WeekValues week, BigDecimal hours, BigDecimal otHours) {
 		BigDecimal pay = new BigDecimal(0);
 		pay = pay.add(hours.multiply(GenParam.getRatePremAftn()));
-		pay = pay.add(otHours.multiply(GenParam.getRatePremAftn()).multiply(
-				GenParam.getRateotprem()));
+//		pay = pay.add(otHours.multiply(GenParam.getRatePremAftn()).multiply(GenParam.getRateotprem()));
+		pay = pay.add(otHours.multiply(GenParam.getRatePremAftn()));
 		week.addWeekAccumPremAftn(pay);
 		return pay;
 	}
@@ -212,8 +215,8 @@ public class Calculations {
 	private static BigDecimal calcPremOvrn(WeekValues week, BigDecimal hours, BigDecimal otHours) {
 		BigDecimal pay = new BigDecimal(0);
 		pay = pay.add(hours.multiply(GenParam.getRatePremOvrn()));
-		pay = pay.add(otHours.multiply(GenParam.getRatePremOvrn()).multiply(
-				GenParam.getRateotprem()));
+//		pay = pay.add(otHours.multiply(GenParam.getRatePremOvrn()).multiply(GenParam.getRateotprem()));
+		pay = pay.add(otHours.multiply(GenParam.getRatePremOvrn()));
 		week.addWeekAccumPremOvrn(pay);
 		return pay;
 	}
@@ -225,8 +228,8 @@ public class Calculations {
 	private static BigDecimal calcPremSun(WeekValues week, BigDecimal hours, BigDecimal otHours) {
 		BigDecimal pay = new BigDecimal(0);
 		pay = pay.add(hours.multiply(GenParam.getRatePremSun()));
-		pay = pay.add(otHours.multiply(GenParam.getRatePremSun()).multiply(
-				GenParam.getRateotprem()));
+//		pay = pay.add(otHours.multiply(GenParam.getRatePremSun()).multiply(GenParam.getRateotprem()));
+		pay = pay.add(otHours.multiply(GenParam.getRatePremSun()));
 		week.addWeekAccumPremSun(pay);
 		return pay;
 	}
@@ -238,8 +241,8 @@ public class Calculations {
 	private static BigDecimal calcPremLeadT(WeekValues week, BigDecimal hours, BigDecimal otHours) {
 		BigDecimal pay = new BigDecimal(0);
 		pay = pay.add(hours.multiply(GenParam.getRatePremLeadT()));
-		pay = pay.add(otHours.multiply(GenParam.getRatePremLeadT()).multiply(
-				GenParam.getRateotprem()));
+//		pay = pay.add(otHours.multiply(GenParam.getRatePremLeadT()).multiply(GenParam.getRateotprem()));
+		pay = pay.add(otHours.multiply(GenParam.getRatePremLeadT()));
 		week.addWeekAccumPremLeadT(pay);
 		return pay;
 	}
@@ -252,6 +255,7 @@ public class Calculations {
 		BigDecimal pay = new BigDecimal(0);
 		pay = pay.add(hours.multiply(GenParam.getRateHourly()));
 		week.addWeekAccumHoliday(pay);
+		week.addWeekAccumHrs(hours);
 		return pay;
 	}
 
