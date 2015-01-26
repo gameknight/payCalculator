@@ -996,7 +996,6 @@ public class UserInterface extends JFrame {
 		overallTotal.setText(new BigDecimal(totalYesOTStr.getText())
 				.add(new BigDecimal(totalYesOTOT.getText()))
 				.add(new BigDecimal(totalNoOT.getText()))
-				.add(new BigDecimal(totalSick.getText()))
 				.add(new BigDecimal(totalHoliday.getText()))
 				.add(new BigDecimal(overallPrem.getText())).toString());
 		// outputString(); // output text file with info for use to send to HR -
